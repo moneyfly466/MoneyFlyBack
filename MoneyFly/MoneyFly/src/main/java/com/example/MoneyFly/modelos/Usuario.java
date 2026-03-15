@@ -1,5 +1,8 @@
 package com.example.MoneyFly.modelos;
 
+import com.example.MoneyFly.modelos.utils.genero;
+import com.example.MoneyFly.modelos.utils.tipoDocumento;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,9 +25,9 @@ public class Usuario {
     @Column(name = "nombres_completos", nullable = false, unique = false, length = 50)
     private String nombres; 
 
-    @Column(name = "tipo_documento", nullable = false, unique = false, length = 20) // hay que hacerle un enum
+    @Column(name = "tipo_documento", nullable = false, unique = false, length = 20) //  enum
     @Enumerated(EnumType.STRING)
-    private String tipoDocumento;
+    private tipoDocumento tipoDocumento;
 
     @Column(name = "", nullable = false, unique = true, length = 15)
     private String documento;
@@ -41,9 +44,9 @@ public class Usuario {
     @Column(name = "", nullable = false, unique = false, length = 50)
     private String contrasena;
 
-    @Column(name = "", nullable = false, unique = false, length = 20) // hay que hacerle un enum
+    @Column(name = "", nullable = false, unique = false, length = 20) // enum
     @Enumerated(EnumType.STRING)
-    private String genero;
+    private genero genero;
 
     @Column(name = "", nullable = false, unique = true, length = 50)
     private String ocupacion;
@@ -52,7 +55,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String contrasena, String correo, String documento, int edad, String genero, int id, String nombres, String ocupacion, String telefono, String tipoDocumento) {
+    public Usuario(String contrasena, String correo, String documento, int edad, genero genero, int id, String nombres, String ocupacion, String telefono, tipoDocumento tipoDocumento) {
         this.contrasena = contrasena;
         this.correo = correo;
         this.documento = documento;
@@ -73,7 +76,7 @@ public class Usuario {
         return nombres;
     }
 
-    public String getTipoDocumento() {
+    public tipoDocumento getTipoDocumento() {
         return tipoDocumento;
     }
 
@@ -97,7 +100,7 @@ public class Usuario {
         return contrasena;
     }
 
-    public String getGenero() {
+    public genero getGenero() {
         return genero;
     }
 
@@ -113,7 +116,7 @@ public class Usuario {
         this.nombres = nombres;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(tipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -137,7 +140,7 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(genero genero) {
         this.genero = genero;
     }
 
