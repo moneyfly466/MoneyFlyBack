@@ -7,16 +7,31 @@ public class Gastos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column (name = "descripcion_gasto", nullable = false, unique = false, length = 30)
     private String descripcion;
+
+    @Column (name = "fecha_gasto", nullable = false)
     private LocalDate fecha;
+
+    @Column (name = "valor", nullable = false, unique = false, length = 10)//al ser gasto hormiga tiene digitos menores
     private int valor;
+
+    @Column(name = "imagen", nullable = true)//campo opcional
     private String imagen;
     
+    @Column(name = "Comercio", nullable = false, unique = false, length = 30)
     private String comercio;
+
+    @Column(name = "medio_de_pago", nullable = false, unique = false, length = 30)
     private String medioPago;
+
+    @Column(name = "ubicacion", nullable = false, unique = false, length = 30)
     private String ubicacion;
-    private int maximo;
-    private String minimo;
+
+   
+    private int maximo;//pendiente
+    private String minimo;//pendiente
 
 
     public Gastos() {

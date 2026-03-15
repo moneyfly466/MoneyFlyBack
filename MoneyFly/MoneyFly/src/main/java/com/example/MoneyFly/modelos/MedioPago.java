@@ -1,6 +1,12 @@
 package com.example.MoneyFly.modelos;
 
+import com.example.MoneyFly.modelos.utils.Franquicia;
+import com.example.MoneyFly.modelos.utils.estado;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,16 +19,24 @@ public class MedioPago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
+
+    @Column(name =  "nombre_metodo", nullable = false, unique = false, length = 20)
     private String nombre;
-    private String franquicia;
-    private String estado;
+
+    @Column (name = "franquicia", nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
+    private Franquicia franquicia;//enum
+
+    @Column(name = "estado", nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
+    private estado estado;
+    
 
     public MedioPago() {
     }
 
-    public MedioPago(int id, String nombre, String franquicia, String estado) {
+    public MedioPago(int id, String nombre, Franquicia franquicia, estado estado) {
         this.id = id;
         this.nombre = nombre;
         this.franquicia = franquicia;
@@ -37,11 +51,11 @@ public class MedioPago {
         return nombre;
     }
 
-    public String getFranquicia() {
+    public Franquicia getFranquicia() {
         return franquicia;
     }
 
-    public String getEstado() {
+    public estado getEstado() {
         return estado;
     }
 
@@ -53,11 +67,11 @@ public class MedioPago {
         this.nombre = nombre;
     }
 
-    public void setFranquicia(String franquicia) {
+    public void setFranquicia(Franquicia franquicia) {
         this.franquicia = franquicia;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(estado estado) {
         this.estado = estado;
     }
 

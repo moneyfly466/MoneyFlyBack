@@ -1,8 +1,9 @@
 package com.example.MoneyFly.modelos.utils;
 
 public enum genero {
-    masculino,
-    femenino,
-    prefieroNoDecirlo
+
+    Mujer,
+    Hombre,
+    Prefiero_no_decirlo,
 
 }
