@@ -8,15 +8,32 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "nombre", nullable = false, unique = false, length = 30)
     private String nombre;
+
+    @Column(name = "fecha", nullable = false)
     private LocalDate fechaCreacion;
+
+    @Column(name = "responsable", nullable = false, unique = false, length = 30)//pendiente enum
     private String responsable;
+
+    @Column(name = "justificacion", nullable = true, unique = false, length = 30)
     private String justificacion;
 
+    @Column(name = "limite_gastos", nullable = false, unique = false, length = 20)//pndiente
     private int limiteGastos;
+
+    @Column(name = "gastos_actuales", nullable = false, unique = false, length = 30)//pendiente
     private int gastosActuales;
+
+    @Column(name = "frecuencia", nullable = false, unique = false, length = 30)
     private String frecuencia ;
+
+    @Column(name = "alerta_gastos", nullable = false, unique = false, length = 30)//pendiente
     private String alertGastos;
+
+    @Column(name = "medio_de_pago", nullable = false, unique = false, length = 30)//pendiente
     private String metodoPagoPreferido;
 
     public Categoria() {

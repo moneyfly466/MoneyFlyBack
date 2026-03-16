@@ -6,18 +6,33 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "medio_pago")
-public class MedioPago {
+    
+
+    @Entity
+    @Table(name = "medio_pago")
+    public class MedioPago {
     
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
+
+    @Column(name =  "nombre_metodo", nullable = false, unique = false, length = 20)
     private String nombre;
-    private String franquicia;
-    private String estado;
+
+    @Column (name = "franquicia", nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
+    private Franquicia franquicia;//enum
+
+    @Column(name = "estado", nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
+    private estado estado;  
+
+    @ManyToOne
+    @JoinColumn(name = "fk_usuario" , referencedColunmName = "id")
+    private Usuario usuario;
+
+ 
 
     public MedioPago() {
     }
