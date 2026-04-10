@@ -9,19 +9,38 @@ public class Comercio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
+   
+    @Column (name = "nit", nullable = true, unique = false, length = 30)
     private String nit;
+
+    @Column (name = "nombre", nullable = false, unique = false, length = 30)
     private String nombre;
+
+    @Column (name = "actividad", nullable = false, unique = false, length = 30)
     private String actividad;
+
+    @Column (name = "contacto", nullable = true, unique = false, length = 30)
     private String contacto;
     
+    @Column (name = "total_gastado", nullable = false, unique = false, length = 10)
     private int  totalGastado;
+
+    @Column (name = "ubicacion", nullable = true, unique = false, length = 30)
     private String ubicacion;
+
+    @Column(name = "gasto_promedio", nullable = false, unique = false, length = 20)//pendiente
     private int gastoPromedio;
+
+    @Column(name = "sector_comercial", nullable = false, unique = false, length = 30)     
     private String sectorComercial;
+
+    @Column(name = "fecha_gasto", nullable = false, unique = false, length = 30)//pendiente
     private LocalDate fechaGasto; 
-   
+
+    @OneToMany(mappedBy = "comercio")
+    private List<Gasto> gastos; 
+
     public Comercio() {
     }
 

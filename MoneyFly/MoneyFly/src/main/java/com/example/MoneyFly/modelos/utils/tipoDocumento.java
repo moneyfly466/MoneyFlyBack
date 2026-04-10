@@ -1,9 +1,9 @@
 package com.example.MoneyFly.modelos.utils;
 
-public enum tipoDocumento {
+public enum TipoDocumento {
     cedula,
-    targetaIdentidad,
+    tarjeta_Identidad,
     pasaporte,
-    permisoPermanecia
+    permiso_Permanecia
 
 }
