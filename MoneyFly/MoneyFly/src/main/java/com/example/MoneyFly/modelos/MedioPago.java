@@ -1,9 +1,18 @@
 package com.example.MoneyFly.modelos;
 
+import org.hibernate.annotations.ManyToAny;
+
+import com.example.MoneyFly.modelos.utils.Estado;
+import com.example.MoneyFly.modelos.utils.Franquicia;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
     
@@ -22,14 +31,14 @@ import jakarta.persistence.Table;
 
     @Column (name = "franquicia", nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
-    private Franquicia franquicia;//enum
+    private Franquicia franquicia;
 
     @Column(name = "estado", nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
-    private estado estado;  
+    private Estado estado;  
 
-    @ManyToOne
-    @JoinColumn(name = "fk_usuario" , referencedColunmName = "id")
+    @ManyToAny
+    @JoinColumn(name = "fk_usuario" , referencedColumnName = "id") 
     private Usuario usuario;
 
  
@@ -37,45 +46,77 @@ import jakarta.persistence.Table;
     public MedioPago() {
     }
 
-    public MedioPago(int id, String nombre, String franquicia, String estado) {
+
+
+    public MedioPago(int id, String nombre, Franquicia franquicia, Estado estado, Usuario usuario) {
         this.id = id;
         this.nombre = nombre;
         this.franquicia = franquicia;
         this.estado = estado;
+        this.usuario = usuario;
     }
+
+
 
     public int getId() {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public String getFranquicia() {
-        return franquicia;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
 
     public void setId(int id) {
         this.id = id;
     }
 
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setFranquicia(String franquicia) {
+
+
+    public Franquicia getFranquicia() {
+        return franquicia;
+    }
+
+
+
+    public void setFranquicia(Franquicia franquicia) {
         this.franquicia = franquicia;
     }
 
-    public void setEstado(String estado) {
+
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+
+
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
-    
+
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+
 
 }
