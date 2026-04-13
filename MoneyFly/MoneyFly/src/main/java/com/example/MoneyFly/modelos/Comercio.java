@@ -1,9 +1,12 @@
 package com.example.MoneyFly.modelos;
 import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 public class Comercio {
 
@@ -39,7 +42,7 @@ public class Comercio {
     private LocalDate fechaGasto; 
 
     @OneToMany(mappedBy = "comercio")
-    private List<Gasto> gastos; 
+    private List<Gastos> gastos; 
 
     public Comercio() {
     }

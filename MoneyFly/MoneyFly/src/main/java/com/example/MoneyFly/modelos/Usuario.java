@@ -1,5 +1,8 @@
 package com.example.MoneyFly.modelos;
 
+import java.util.List;
+
+import com.example.MoneyFly.modelos.utils.Genero;
 import com.example.MoneyFly.modelos.utils.TipoDocumento;
 
 import jakarta.persistence.Column;
@@ -9,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -50,8 +54,8 @@ public class Usuario {
     @Column(name = "Ocupacion", nullable = false, unique = true, length = 50)
     private String ocupacion;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<MedioPago> medioPago;
+    @OneToMany (mappedBy = "usuario")
+    private List <MedioPago> medioPago;
 
     @OneToMany (mappedBy = "usuario")
      private List<Gastos> Gastos;
