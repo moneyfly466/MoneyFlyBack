@@ -58,7 +58,12 @@ public class Usuario {
     private List <MedioPago> medioPago;
 
     @OneToMany (mappedBy = "usuario")
-     private List<Gastos> Gastos;
+    private List<Gastos> Gastos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Categoria> categorias;
+
+
 
 
     

@@ -1,12 +1,12 @@
 package com.example.MoneyFly.modelos;
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
-import java.time.LocalDate;
 
 public class Gastos {
     @Id
@@ -44,6 +44,10 @@ public class Gastos {
     @ManyToOne
     @JoinColumn(name = "fk_Comercio")
     private Comercio comercio;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_Categoria")
+    private Categoria categoria;
 
 
 
