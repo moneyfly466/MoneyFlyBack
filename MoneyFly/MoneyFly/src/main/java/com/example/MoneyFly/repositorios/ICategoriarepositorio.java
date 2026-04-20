@@ -1,4 +1,4 @@
-package com.example.MoneyFly.modelos.repositorios;
+package com.example.MoneyFly.repositorios;
 
 import java.util.List;
 
