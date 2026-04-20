@@ -49,7 +49,7 @@ public class UsuarioServicios {
         return repositorio.findAll();
     }
 
-    //funcion para modificar un uausrio 
+    //funcion para modificar un usuario 
 
     //funcion para eliminar un usuario 
 
