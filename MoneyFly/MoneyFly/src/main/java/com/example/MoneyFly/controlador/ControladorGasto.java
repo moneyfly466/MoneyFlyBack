@@ -1,4 +1,4 @@
-package com.example.MoneyFly.controladores;
+package com.example.MoneyFly.controlador;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +13,8 @@ import com.example.MoneyFly.modelos.Gastos;
 import com.example.MoneyFly.servicios.GastosServicios;
 
 @RestController
-@RequestMapping("/moneyflyapi/v1/gastos")
-public class GastoControlador {
+@RequestMapping("/apimoneyfly/v1/gastos")
+public class ControladorGasto {
 
     //Inyectar el servicio correspondiente
     @Autowired

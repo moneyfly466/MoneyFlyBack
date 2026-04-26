@@ -1,4 +1,4 @@
-package com.example.MoneyFly.modelos.servicios;
+package com.example.MoneyFly.servicios;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.MoneyFly.modelos.Usuario;
-import com.example.MoneyFly.modelos.repositorios.IUsuariorepositorio;
+import com.example.MoneyFly.repositorios.IUsuariorepositorio;
 
 @Service
 public class UsuarioServicios {
