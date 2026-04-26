@@ -1,4 +1,4 @@
-package com.example.MoneyFly.modelos.servicios;
+package com.example.MoneyFly.servicios;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.MoneyFly.modelos.Comercio;
-import com.example.MoneyFly.modelos.repositorios.IComerciorepositorio;
+import com.example.MoneyFly.repositorios.IComerciorepositorio;
 
 @Service
 public class ComercioServicios {
@@ -62,12 +62,12 @@ public class ComercioServicios {
 
     // Función para buscar comercios por nombre
     public List<Comercio> buscarComerciosPorNombre(String nombre) {
-        return repositorio.findByNombre(nombre);
+        return repositorio.finByNombres(nombre);
     }
 
     // Función para buscar comercios por actividad
     public List<Comercio> buscarComerciosPorActividad(String actividad) {
-        return repositorio.findByActividad(actividad);
+        return repositorio.finByActividad(actividad);
     }
 
     // Función para modificar un comercio

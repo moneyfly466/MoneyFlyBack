@@ -1,4 +1,4 @@
-package com.example.MoneyFly.modelos.servicios;
+package com.example.MoneyFly.servicios;
 
 
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.MoneyFly.modelos.Gastos;
-import com.example.MoneyFly.modelos.repositorios.IGastosrepositorio;
+import com.example.MoneyFly.repositorios.IGastosrepositorio;
 
 
 @Service
