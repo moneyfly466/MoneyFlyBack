@@ -1,29 +1,62 @@
 package com.example.MoneyFly.modelos;
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 public class Gastos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column (name = "descripcion_gasto", nullable = false, unique = false, length = 30)
     private String descripcion;
+
+    @Column (name = "fecha_gasto", nullable = false)
     private LocalDate fecha;
+
+    @Column (name = "valor", nullable = false, unique = false, length = 10)//al ser gasto hormiga tiene digitos menores
     private int valor;
+
+    @Column(name = "imagen", nullable = true)//campo opcional
     private String imagen;
     
-    private String comercio;
+    @Column(name = "Comercio", nullable = false, unique = false, length = 30)
+    private String Comercio;
+
+    @Column(name = "medio_de_pago", nullable = false, unique = false, length = 30)
     private String medioPago;
+
+    @Column(name = "ubicacion", nullable = false, unique = false, length = 30)
     private String ubicacion;
-    private int maximo;
-    private String minimo;
+
+    private int maximo;//pendiente
+    private String minimo;//pendiente
+
+    @ManyToOne
+    @JoinColumn(name = "fk_usuario", referencedColumnName ="id")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_Comercio")
+    private Comercio comercio;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_Categoria")
+    private Categoria categoria;
+
+
 
 
     public Gastos() {
     }
 
-    public Gastos(String comercio, String descripcion, LocalDate fecha, int id, String imagen, int maximo, String medioPago, String minimo, String ubicacion, int valor) {
-        this.comercio = comercio;
+    public Gastos(String Comercio, String descripcion, LocalDate fecha, int id, String imagen, int maximo, String medioPago, String minimo, String ubicacion, int valor) {
+        this.Comercio = Comercio;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.id = id;
@@ -58,7 +91,7 @@ public class Gastos {
     }
 
     public String getComercio() {
-        return comercio;
+        return Comercio;
     }
 
     public String getMedioPago() {
@@ -97,8 +130,8 @@ public class Gastos {
         this.imagen = imagen;
     }
 
-    public void setComercio(String comercio) {
-        this.comercio = comercio;
+    public void setComercio(String Comercio) {
+        this.Comercio = Comercio;
     }
 
     public void setMedioPago(String medioPago) {

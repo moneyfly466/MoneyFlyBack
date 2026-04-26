@@ -1,8 +1,9 @@
 package com.example.MoneyFly.modelos.utils;
 
-public enum genero {
+public enum Genero {
     masculino,
     femenino,
     prefieroNoDecirlo
 
 }
+

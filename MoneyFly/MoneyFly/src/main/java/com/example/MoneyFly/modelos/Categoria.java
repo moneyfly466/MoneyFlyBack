@@ -1,6 +1,19 @@
 package com.example.MoneyFly.modelos;
-import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "categoria")
 
 public class Categoria {
 
@@ -8,16 +21,40 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "nombre", nullable = false, unique = false, length = 30)
     private String nombre;
+
+    @Column(name = "fecha", nullable = false)
     private LocalDate fechaCreacion;
+
+    @Column(name = "responsable", nullable = false, unique = false, length = 30)//pendiente enum
     private String responsable;
+
+    @Column(name = "justificacion", nullable = true, unique = false, length = 30)
     private String justificacion;
 
+    @Column(name = "limite_gastos", nullable = false, unique = false, length = 20)//pndiente
     private int limiteGastos;
+
+    @Column(name = "gastos_actuales", nullable = false, unique = false, length = 30)//pendiente
     private int gastosActuales;
+
+    @Column(name = "frecuencia", nullable = false, unique = false, length = 30)
     private String frecuencia ;
+
+    @Column(name = "alerta_gastos", nullable = false, unique = false, length = 30)//pendiente
     private String alertGastos;
+
+    @Column(name = "medio_de_pago", nullable = false, unique = false, length = 30)//pendiente
     private String metodoPagoPreferido;
+
+    @OneToMany(mappedBy = "categoria")
+    private List<Gastos> gastos; 
+
+    @ManyToOne
+    @JoinColumn(name = "fk_usuario")
+    private Usuario usuario;    
 
     public Categoria() {
     }

@@ -1,5 +1,10 @@
 package com.example.MoneyFly.modelos;
 
+import java.util.List;
+
+import com.example.MoneyFly.modelos.utils.Genero;
+import com.example.MoneyFly.modelos.utils.TipoDocumento;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,35 +30,47 @@ public class Usuario {
 
     @Column(name = "tipo_documento", nullable = false, unique = false, length = 20) // hay que hacerle un enum
     @Enumerated(EnumType.STRING)
-    private String tipoDocumento;
+    private TipoDocumento tipoDocumento;
 
-    @Column(name = "", nullable = false, unique = true, length = 15)
+    @Column(name = "Documento", nullable = false, unique = true, length = 15)
     private String documento;
 
-    @Column(name = "", nullable = false, unique = false)
+    @Column(name = "Edad", nullable = false, unique = false)
     private int edad;
 
-    @Column(name = "", nullable = false, unique = true, length = 30)
+    @Column(name = "Correo", nullable = false, unique = true, length = 30)
     private String correo;
 
-    @Column(name = "", nullable = false, unique = true, length = 15)
+    @Column(name = "Telefono", nullable = false, unique = true, length = 15)
     private String telefono;
 
-    @Column(name = "", nullable = false, unique = false, length = 50)
+    @Column(name = "Contrasena", nullable = false, unique = false, length = 50)
     private String contrasena;
 
-    @Column(name = "", nullable = false, unique = false, length = 20) // hay que hacerle un enum
+    @Column(name = "Genero", nullable = false, unique = false, length = 20) // hay que hacerle un enum
     @Enumerated(EnumType.STRING)
-    private String genero;
+    private Genero genero;
 
-    @Column(name = "", nullable = false, unique = true, length = 50)
+    @Column(name = "Ocupacion", nullable = false, unique = true, length = 50)
     private String ocupacion;
+
+    @OneToMany (mappedBy = "usuario")
+    private List <MedioPago> medioPago;
+
+    @OneToMany (mappedBy = "usuario")
+    private List<Gastos> Gastos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Categoria> categorias;
+
+
+
 
     
     public Usuario() {
     }
 
-    public Usuario(String contrasena, String correo, String documento, int edad, String genero, int id, String nombres, String ocupacion, String telefono, String tipoDocumento) {
+    public Usuario(String contrasena, String correo, String documento, int edad, Genero genero, int id, String nombres, String ocupacion, String telefono, TipoDocumento tipoDocumento) {
         this.contrasena = contrasena;
         this.correo = correo;
         this.documento = documento;
@@ -73,7 +91,7 @@ public class Usuario {
         return nombres;
     }
 
-    public String getTipoDocumento() {
+    public TipoDocumento getTipoDocumento() {
         return tipoDocumento;
     }
 
@@ -97,7 +115,7 @@ public class Usuario {
         return contrasena;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
@@ -113,7 +131,7 @@ public class Usuario {
         this.nombres = nombres;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -137,7 +155,7 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
