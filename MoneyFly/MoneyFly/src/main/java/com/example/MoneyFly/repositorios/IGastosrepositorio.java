@@ -11,5 +11,7 @@ import com.example.MoneyFly.modelos.Gastos;
 @Repository
 public interface IGastosrepositorio extends JpaRepository <Gastos,Integer> {
 
+    
+
 
 }
