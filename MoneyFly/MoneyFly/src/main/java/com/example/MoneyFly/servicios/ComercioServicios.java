@@ -19,7 +19,7 @@ public class ComercioServicios {
     private IComerciorepositorio repositorio;
 
     // Función para guardar un comercio
-    public Comercio guardarComercio(Comercio datosComercio) {
+    public Comercio guardar_comercio(Comercio datosComercio) {
         // Validar los campos del modelo según la lógica del negocio
 
         // Validar que el comercio tenga nombre
@@ -51,7 +51,7 @@ public class ComercioServicios {
     }
 
     // Función para listar todos los comercios
-    public List<Comercio> listarComercios() {
+    public List<Comercio> listar_comercios() {
         return repositorio.findAll();
     }
 
