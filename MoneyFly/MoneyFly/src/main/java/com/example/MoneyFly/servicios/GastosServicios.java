@@ -17,7 +17,7 @@ import com.example.MoneyFly.repositorios.IGastosrepositorio;
 public class GastosServicios {
 
     @Autowired
-    private Gastosrepositorio repositorio;
+    private IGastosrepositorio repositorio;
 
     //funcion para guardar un gasto
     public Gastos guardar_gasto(Gastos datosGasto){

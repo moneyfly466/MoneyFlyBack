@@ -1,61 +1,86 @@
 package com.example.MoneyFly.servicios;
 
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.example.MoneyFly.modelos.Usuario;
 import com.example.MoneyFly.repositorios.IUsuariorepositorio;
 
 @Service
 public class UsuarioServicios {
 
-    //inyeccion de dependecias al repositorio usuario 
-
     @Autowired
     private IUsuariorepositorio repositorio;
 
-    //se programa una funcion por cada servicio que voy a ofecer
-
-    //funcion para guardar un usuario 
+    // Guardar usuario
     public Usuario guardar_usuario(Usuario datosUsuario){
-        //validar los campos del modelo segun la logica del negocio
+        
+        if (datosUsuario.getNombres() == null || datosUsuario.getNombres().isBlank()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "El nombre de usuario es obligatorio"
+            );
+        }
 
-        //validar que el usuario me mande sus nombres 
-        if (datosUsuario.getNombres()==null || datosUsuario.getNombres().isEmpty() || datosUsuario.getNombres().isBlank()) {
+        if (datosUsuario.getDocumento().length() < 6) {
             throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST,
-                "apreciado usuario,el nombre de usuario es obligatorio"
+                "El documento debe tener al menos 6 caracteres"
             );
         }
-        //validar documento tenga al menos 6 caracteres 
-        if (datosUsuario.getDocumento().length()<6) {
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "apreciado usuario el documento tiene que al menos 6 carateres"
-            );
-        }
-        //si paso todas las validaciones
-        //intentare activar el guardado de los datos
+
         return repositorio.save(datosUsuario);
     }
-    
 
-    //funcion para listar todos los usuarios 
+    // Listar usuarios
     public List<Usuario> listar_Usuarios(){
         return repositorio.findAll();
     }
 
-    //funcion para modificar un usuario 
+    // Modificar usuario
+    public Usuario modificar_Usuario(Integer id, Usuario datosNuevos){
 
-    //funcion para eliminar un usuario 
+        Usuario usuario_encontrado = repositorio.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Usuario no encontrado"
+            ));
 
-    //funcion para buscar un usuario por id 
+        // Actualizar campos que quieras permitir
+        usuario_encontrado.setNombres(datosNuevos.getNombres());
+        usuario_encontrado.setTipoDocumento(datosNuevos.getTipoDocumento());
+        usuario_encontrado.setDocumento(datosNuevos.getDocumento());
+        usuario_encontrado.setCorreo(datosNuevos.getCorreo());
+        usuario_encontrado.setTelefono(datosNuevos.getTelefono());
+        usuario_encontrado.setGenero(datosNuevos.getGenero());
+        usuario_encontrado.setOcupacion(datosNuevos.getOcupacion());
+        
+        return repositorio.save(usuario_encontrado);
+    }
 
-    //funcion para buscar por edad 
+    // Eliminar usuario
+    public boolean eliminar_usuario (Integer id){
 
+        Usuario usuario = repositorio.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Usuario no encontrado"
+            ));
 
+        repositorio.delete(usuario);
+        return true;
+    }
+
+    // Buscar usuario por id
+    public Usuario buscar_usuario_por_id(Integer id){
+
+        return repositorio.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Usuario no encontrado"
+            ));
+    }
 }
