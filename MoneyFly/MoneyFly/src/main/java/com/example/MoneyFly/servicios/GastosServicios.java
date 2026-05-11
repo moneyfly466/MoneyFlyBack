@@ -2,6 +2,7 @@ package com.example.MoneyFly.servicios;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import com.example.MoneyFly.repositorios.IGastosrepositorio;
 public class GastosServicios {
 
     @Autowired
-    private IGastosrepositorio repositorio;
+    private Gastosrepositorio repositorio;
 
     //funcion para guardar un gasto
     public Gastos guardar_gasto(Gastos datosGasto){
@@ -48,6 +49,65 @@ public class GastosServicios {
         return repositorio.findAll();
 
     }
+
+      //funcion para modificar un gasto 
+        public List<Gastos> modificar_gasto(Integer id , Gastos datosGasto){
+           
+            Optional<Gastos> gasto_existente = repositorio.findById(id);
+            if (gasto_existente.isEmpty()) {
+                throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "apreciado usuario el gasto con id "+id+" no existe"
+                );
+            }else{
+                Gastos gasto_modificado = gasto_existente.get();
+                gasto_modificado.setDescripcion(datosGasto.getDescripcion());
+                gasto_modificado.setFecha(datosGasto.getFecha());
+                gasto_modificado.setValor(datosGasto.getValor());
+                gasto_modificado.setImagen(datosGasto.getImagen());
+                gasto_modificado.setComercio(datosGasto.getComercio());
+                gasto_modificado.setMedioPago(datosGasto.getMedioPago());
+                gasto_modificado.setUbicacion(datosGasto.getUbicacion());
+                repositorio.save(gasto_modificado);
+                return repositorio.findAll();
+            }
+        }
+ 
+
+    //funcion para eliminar un gasto 
+    public boolean eliminar_gasto(Integer id){
+        
+        Optional<Gastos> gasto_existente = repositorio.findById(id);
+        if (gasto_existente.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "apreciado usuario el gasto con id "+id+" no existe"
+            );
+        }else{
+            repositorio.deleteById(id);
+            return true;
+        }
+    
+    
+        
+    }
+
+
+    //funcion para buscar un gasto por id 
+    public Gastos buscar_gasto_por_id(Integer id){
+        
+        Optional<Gastos> gasto_existente = repositorio.findById(id);
+        if (gasto_existente.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "apreciado usuario el gasto con id "+id+" no existe"
+            );
+        }else{
+            return gasto_existente.get();
+        }
+    }
+
+
 
 }
     
