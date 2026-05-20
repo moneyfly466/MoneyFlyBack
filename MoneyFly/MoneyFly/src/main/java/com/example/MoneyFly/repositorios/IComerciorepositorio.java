@@ -11,9 +11,9 @@ import com.example.MoneyFly.modelos.Comercio;
 public interface IComerciorepositorio extends JpaRepository<Comercio, Integer> {
 
     //buscar por nombre 
-    List<Comercio> finByNombres(String Nombres);
+    List<Comercio> findByNombre(String Nombre);
 
-    List<Comercio> finByActividad (String Actividad);
+    List<Comercio> findByActividad (String Actividad);
 
     // Consultas personalizadas 
 

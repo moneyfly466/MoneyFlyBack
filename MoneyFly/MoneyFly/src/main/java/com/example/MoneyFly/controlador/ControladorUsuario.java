@@ -42,7 +42,7 @@ public class ControladorUsuario {
     }
 
     //controlador para eliminar
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> controaldorEliminar(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_usuario(id));
     }

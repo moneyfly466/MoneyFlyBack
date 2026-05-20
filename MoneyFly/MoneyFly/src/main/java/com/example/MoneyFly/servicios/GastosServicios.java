@@ -52,7 +52,6 @@ public class GastosServicios {
 
       //funcion para modificar un gasto 
         public List<Gastos> modificar_gasto(Integer id , Gastos datosGasto){
-           
             Optional<Gastos> gasto_existente = repositorio.findById(id);
             if (gasto_existente.isEmpty()) {
                 throw new ResponseStatusException(
@@ -72,7 +71,6 @@ public class GastosServicios {
                 return repositorio.findAll();
             }
         }
- 
 
     //funcion para eliminar un gasto 
     public boolean eliminar_gasto(Integer id){

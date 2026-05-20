@@ -1,6 +1,5 @@
 package com.example.MoneyFly.modelos;
 
-import org.hibernate.annotations.ManyToAny;
 
 import com.example.MoneyFly.modelos.utils.Estado;
 import com.example.MoneyFly.modelos.utils.Franquicia;
@@ -13,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
     
@@ -37,11 +37,11 @@ import jakarta.persistence.Table;
     @Enumerated(EnumType.STRING)
     private Estado estado;  
 
-    @ManyToAny
-    @JoinColumn(name = "fk_usuario" , referencedColumnName = "id") 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
- 
+
 
     public MedioPago() {
     }
