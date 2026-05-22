@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.MoneyFly.modelos.Comercio;
-import com.example.MoneyFly.servicios.ComercioServicios;
+import com.example.MoneyFly.servicios.ComercioServicio;
 
 @RestController
 @RequestMapping("/apimoneyfly/v1/comercio")
 public class ControladorComercio {
 
     @Autowired
-    private ComercioServicios servicio;
+    private ComercioServicio servicio;
 
     @PostMapping
     public ResponseEntity<?> controladorGuardar(@RequestBody Comercio datos){
