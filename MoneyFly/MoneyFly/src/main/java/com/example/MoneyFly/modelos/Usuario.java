@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.MoneyFly.modelos.utils.Genero;
 import com.example.MoneyFly.modelos.utils.TipoDocumento;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,7 @@ public class Usuario {
     private int id;
 
     @Column(name = "nombres_completos", nullable = false, unique = false, length = 50)
+    //@JsonProperty("nombres")
     private String nombres; 
 
     @Column(name = "tipo_documento", nullable = false, unique = false, length = 20) // hay que hacerle un enum
@@ -44,14 +46,15 @@ public class Usuario {
     @Column(name = "Telefono", nullable = false, unique = true, length = 15)
     private String telefono;
 
-    @Column(name = "Contrasena", nullable = false, unique = false, length = 50)
-    private String contrasena;
+    @Column(name = "Contraseña", nullable = false, unique = false, length = 50)
+    //@JsonProperty("password")
+    private String contraseña;
 
     @Column(name = "Genero", nullable = false, unique = false, length = 20) // hay que hacerle un enum
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
-    @Column(name = "Ocupacion", nullable = false, unique = true, length = 50)
+    @Column(name = "Ocupacion", nullable = false, length = 50)
     private String ocupacion;
 
     @OneToMany (mappedBy = "usuario")
@@ -70,8 +73,8 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String contrasena, String correo, String documento, int edad, Genero genero, int id, String nombres, String ocupacion, String telefono, TipoDocumento tipoDocumento) {
-        this.contrasena = contrasena;
+    public Usuario(String contraseña, String correo, String documento, int edad, Genero genero, int id, String nombres, String ocupacion, String telefono, TipoDocumento tipoDocumento) {
+        this.contraseña = contraseña;
         this.correo = correo;
         this.documento = documento;
         this.edad = edad;
@@ -111,8 +114,8 @@ public class Usuario {
         return telefono;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getContraseña() {
+        return contraseña;
     }
 
     public Genero getGenero() {
@@ -151,8 +154,8 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public void setGenero(Genero genero) {

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.MoneyFly.modelos.Comercio;
-import com.example.MoneyFly.servicios.ComercioServicios;
+import com.example.MoneyFly.servicios.ComercioServicio;
 
 @RestController
 <<<<<<< HEAD
@@ -26,7 +26,7 @@ import com.example.MoneyFly.servicios.ComercioServicios;
 public class ControladorComercio {
 
     @Autowired
-    private ComercioServicios servicio;
+    private ComercioServicio servicio;
 
 <<<<<<< HEAD
     // Función controladora para el servicio de guardar comercio
