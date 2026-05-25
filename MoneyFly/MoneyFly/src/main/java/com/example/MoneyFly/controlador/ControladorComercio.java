@@ -3,12 +3,17 @@ package com.example.MoneyFly.controlador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 =======
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 >>>>>>> e974001 (se crea el controlador se comercio)
+=======
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+>>>>>>> 45c5092 (se suben cambion en la carpeta configuracion)
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,16 +52,21 @@ public class ControladorComercio {
 }
 =======
     @PostMapping
-    public ResponseEntity<?> controladorGuardar(@RequestBody Comercio datos){
+    public ResponseEntity<?> controladorGuardar(@RequestBody Comercio datos) {
         return ResponseEntity.status(HttpStatus.OK).body(
             servicio.guardar_comercio(datos)
         );
     }
 
-    public ResponseEntity <?> controladorlistar(){
+    @GetMapping
+    public ResponseEntity<?> controladorListar() {
         return ResponseEntity.status(HttpStatus.OK).body(
             servicio.listar_comercios()
         );
     }
+<<<<<<< HEAD
 }
 >>>>>>> e974001 (se crea el controlador se comercio)
+=======
+}
+>>>>>>> 45c5092 (se suben cambion en la carpeta configuracion)
