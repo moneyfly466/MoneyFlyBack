@@ -13,6 +13,7 @@ public interface IComerciorepositorio extends JpaRepository<Comercio, Integer> {
     //buscar por nombre 
     List<Comercio> findByNombre(String Nombre);
 
+    //buscar por actividad
     List<Comercio> findByActividad (String Actividad);
 
     // Consultas personalizadas 
