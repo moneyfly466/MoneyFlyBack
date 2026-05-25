@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.example.MoneyFly.modelos.utils.Genero;
 import com.example.MoneyFly.modelos.utils.TipoDocumento;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
