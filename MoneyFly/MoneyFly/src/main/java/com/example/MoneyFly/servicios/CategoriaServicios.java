@@ -3,9 +3,7 @@ package com.example.MoneyFly.servicios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.example.MoneyFly.modelos.Categoria;
 import com.example.MoneyFly.repositorios.ICategoriarepositorio;
@@ -13,46 +11,49 @@ import com.example.MoneyFly.repositorios.ICategoriarepositorio;
 @Service
 public class CategoriaServicios {
 
-    //inyeccion de dependencias al repositorio categoria
-
     @Autowired
-    private ICategoriarepositorio repositorio;
+    ICategoriarepositorio repositorio;
 
-    //se programa una funcion por cada servicio que voy a ofrecer
-
-    //funcion para guardar una categoria
-    public Categoria guardar_categoria(Categoria datosCategoria){
-        //validar los campos del modelo segun la logica del negocio
-
-        //validar que el nombre no este vacio
-        if (datosCategoria.getNombre()==null || datosCategoria.getNombre().isEmpty() || datosCategoria.getNombre().isBlank()) {
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "apreciado usuario, el nombre de la categoria es obligatorio"
-            );
-        }
-        //validar que el responsable no este vacio
-        if (datosCategoria.getResponsable()==null || datosCategoria.getResponsable().isEmpty() || datosCategoria.getResponsable().isBlank()) {
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "apreciado usuario, el responsable de la categoria es obligatorio"
-            );
-        }
-        //validar que el limite de gastos sea mayor a 0
-        if (datosCategoria.getLimiteGastos()<=0) {
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "apreciado usuario, el limite de gastos debe ser mayor a 0"
-            );
-        }
-        //si paso todas las validaciones
-        //intentare activar el guardado de los datos
-        return repositorio.save(datosCategoria);
+    // Guardar categoria
+    public Categoria guardar_categoria(Categoria datos) {
+        return repositorio.save(datos);
     }
 
-    //funcion para listar todas las categorias
-    public List<Categoria> listar_categorias(){
+    // Listar todas las categorias
+    public List<Categoria> listar_categorias() {
         return repositorio.findAll();
     }
 
+    // Modificar categoria
+    public Categoria modificar_categoria(Integer id, Categoria datos) {
+        Categoria categoriaExistente = repositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada con id: " + id));
+
+        categoriaExistente.setNombre(datos.getNombre());
+        categoriaExistente.setFechaCreacion(datos.getFechaCreacion());
+        categoriaExistente.setResponsable(datos.getResponsable());
+        categoriaExistente.setJustificacion(datos.getJustificacion());
+        categoriaExistente.setLimiteGastos(datos.getLimiteGastos());
+        categoriaExistente.setGastosActuales(datos.getGastosActuales());
+        categoriaExistente.setFrecuencia(datos.getFrecuencia());
+        categoriaExistente.setAlertGastos(datos.getAlertGastos());
+        categoriaExistente.setMetodoPagoPreferido(datos.getMetodoPagoPreferido());
+
+        return repositorio.save(categoriaExistente);
+    }
+
+    // Eliminar categoria
+    public String eliminar_categoria(Integer id) {
+        repositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada con id: " + id));
+
+        repositorio.deleteById(id);
+        return "Categoria con id " + id + " eliminada correctamente";
+    }
+
+    // Buscar categoria por id
+    public Categoria buscar_categoria_por_id(Integer id) {
+        return repositorio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada con id: " + id));
+    }
 }
