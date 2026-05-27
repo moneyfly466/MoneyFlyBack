@@ -24,14 +24,19 @@ public class CargaDatosUsuario implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+        if (usuarioRepositorio.count() > 0) {
+            System.out.println(">>> Usuarios ya existen, se omite la carga inicial");
+            return;
+        }
+
         String[] nombre = {
-                "Juan Perez", "Maria Gomez", "Carlos Ramirez", "Ana Torres", "Luis Martinez",
-                "Sofia Herrera", "Pedro Castillo", "Valentina Diaz", "Jorge Suarez", "Laura Beltran"
+            "Juan Perez", "Maria Gomez", "Carlos Ramirez", "Ana Torres", "Luis Martinez",
+            "Sofia Herrera", "Pedro Castillo", "Valentina Diaz", "Jorge Suarez", "Laura Beltran"
         };
 
         String[] ocupaciones = {
-                "Ingeniero", "Profesor", "Estudiante", "Medico", "Abogado",
-                "Comerciante", "Administrador", "Diseñador", "Programador", "Contador"
+            "Ingeniero", "Profesor", "Estudiante", "Medico", "Abogado",
+            "Comerciante", "Administrador", "Diseñador", "Programador", "Contador"
         };
 
         TipoDocumento[] tiposDocumento = TipoDocumento.values();
@@ -41,12 +46,11 @@ public class CargaDatosUsuario implements CommandLineRunner {
         List<Usuario> usuarios = new ArrayList<>();
 
         for (int i = 0; i < 50; i++) {
-
             String nombres = nombre[random.nextInt(10)];
             String ocupacion = ocupaciones[random.nextInt(ocupaciones.length)];
             TipoDocumento tipoDoc = tiposDocumento[random.nextInt(tiposDocumento.length)];
             Genero genero = generos[random.nextInt(generos.length)];
-            int edad = 18 + random.nextInt(40); // entre 18 y 58
+            int edad = 18 + random.nextInt(40);
 
             String documento = String.valueOf(10000000 + random.nextInt(90000000));
             String correo = "usuario" + i + "@correo.com";
@@ -54,18 +58,9 @@ public class CargaDatosUsuario implements CommandLineRunner {
             String contraseña = "pass" + i;
 
             Usuario u = new Usuario(
-                    contraseña,
-                    correo,
-                    documento,
-                    edad,
-                    genero,
-                    0, // el ID se autogenera
-                    nombres,
-                    ocupacion,
-                    telefono,
-                    tipoDoc
+                contraseña, correo, documento, edad, genero,
+                0, nombres, ocupacion, telefono, tipoDoc
             );
-
             usuarios.add(u);
         }
 

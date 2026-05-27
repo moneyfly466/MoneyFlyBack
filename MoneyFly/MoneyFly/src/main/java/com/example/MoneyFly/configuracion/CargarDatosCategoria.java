@@ -23,6 +23,11 @@ public class CargarDatosCategoria implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+        if (categoriaRepositorio.count() > 0) {
+            System.out.println(">>> Categorias ya existen, se omite la carga inicial");
+            return;
+        }
+
         String[] nombres = {
             "Alimentación", "Transporte", "Salud", "Educación", "Entretenimiento",
             "Ropa", "Servicios", "Vivienda", "Tecnología", "Deporte"
@@ -38,48 +43,28 @@ public class CargarDatosCategoria implements CommandLineRunner {
             "Ocio y bienestar", "Mantenimiento", "Ahorro planificado", null, null, null
         };
 
-        String[] frecuencias = {
-            "Diaria", "Semanal", "Quincenal", "Mensual", "Anual"
-        };
-
-        String[] alertas = {
-            "50%", "70%", "80%", "90%", "100%"
-        };
-
-        String[] metodosPago = {
-            "Efectivo", "Tarjeta débito", "Tarjeta crédito", "Transferencia", "PSE"
-        };
+        String[] frecuencias = { "Diaria", "Semanal", "Quincenal", "Mensual", "Anual" };
+        String[] alertas = { "50%", "70%", "80%", "90%", "100%" };
+        String[] metodosPago = { "Efectivo", "Tarjeta débito", "Tarjeta crédito", "Transferencia", "PSE" };
 
         Random random = new Random();
         List<Categoria> categorias = new ArrayList<>();
 
         for (int i = 0; i < 50; i++) {
-
-            String nombre        = nombres[random.nextInt(nombres.length)];
-            String responsable   = responsables[random.nextInt(responsables.length)];
+            String nombre = nombres[random.nextInt(nombres.length)];
+            String responsable = responsables[random.nextInt(responsables.length)];
             String justificacion = justificaciones[random.nextInt(justificaciones.length)];
-            String frecuencia    = frecuencias[random.nextInt(frecuencias.length)];
-            String alerta        = alertas[random.nextInt(alertas.length)];
-            String metodoPago    = metodosPago[random.nextInt(metodosPago.length)];
-
-            int limiteGastos   = 100000 + random.nextInt(900000); // entre 100.000 y 1.000.000
-            int gastosActuales = random.nextInt(limiteGastos);    // siempre menor al límite
-
-            LocalDate fecha = LocalDate.now().minusDays(random.nextInt(365)); // último año
+            String frecuencia = frecuencias[random.nextInt(frecuencias.length)];
+            String alerta = alertas[random.nextInt(alertas.length)];
+            String metodoPago = metodosPago[random.nextInt(metodosPago.length)];
+            int limiteGastos = 100000 + random.nextInt(900000);
+            int gastosActuales = random.nextInt(limiteGastos);
+            LocalDate fecha = LocalDate.now().minusDays(random.nextInt(365));
 
             Categoria c = new Categoria(
-                alerta,
-                fecha,
-                frecuencia,
-                gastosActuales,
-                0, // ID se autogenera
-                justificacion,
-                limiteGastos,
-                metodoPago,
-                nombre,
-                responsable
+                alerta, fecha, frecuencia, gastosActuales,
+                0, justificacion, limiteGastos, metodoPago, nombre, responsable
             );
-
             categorias.add(c);
         }
 

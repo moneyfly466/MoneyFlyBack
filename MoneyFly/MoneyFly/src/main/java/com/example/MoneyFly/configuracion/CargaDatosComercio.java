@@ -2,9 +2,8 @@ package com.example.MoneyFly.configuracion;
 
 import com.example.MoneyFly.modelos.Comercio;
 import com.example.MoneyFly.repositorios.IComerciorepositorio;
-import org.springframework.boot.CommandLineRunner;
 
-import org.springframework.core.annotation.Order;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-@Order(2)
 public class CargaDatosComercio implements CommandLineRunner {
 
     private final IComerciorepositorio comercioRepositorio;
@@ -25,50 +23,43 @@ public class CargaDatosComercio implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        String[] nombres = {
-            "Tienda ABC", "Supermercado XYZ", "Tech Store",
-            "Farmacia Vida", "Ropa Express", "Restaurante El Buen Sabor",
-            "Librería Central", "Ferretería El Tornillo", "Gym FitLife", "Café Aroma"
+        if (comercioRepositorio.count() > 0) {
+            System.out.println(">>> Comercios ya existen, se omite la carga inicial");
+            return;
+        }
+
+        String[] nombresComercios = {
+            "Supermercado La Economía", "Panadería El Trigal", "Tienda Don Pepe", "Farmacia Vida Sana",
+            "Restaurante Buen Sabor", "Cafetería La Esquina", "Zapatería El Paso Firme",
+            "Papelería Mundo Útil", "Centro Tecnológico Byte", "Heladería Dulce Nieve"
         };
 
         String[] actividades = {
-            "venta", "servicios", "tecnologia", "salud", "retail"
+            "Venta de alimentos", "Repostería", "Venta minorista", "Farmacia", "Restaurante",
+            "Cafetería", "Calzado", "Papelería", "Tecnología", "Heladería"
         };
 
-        String[] ubicaciones = {
-            "Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"
-        };
-
-        String[] sectores = {
-            "comercial", "industrial", "tecnologico", "salud", "retail"
-        };
-
-        String[] nits = {
-            "900123456", "901234567", "902345678", "903456789", "904567890"
-        };
+        String[] sectores = { "Comida", "Salud", "Retail", "Tecnología", "Servicios", "Moda" };
+        String[] ubicaciones = { "Medellín", "Bello", "Envigado", "Itagüí", "Sabaneta" };
 
         Random random = new Random();
         List<Comercio> comercios = new ArrayList<>();
 
-        for (int i = 0; i < 50; i++) {
-            int totalGastado  = 5000  + random.nextInt(45000);
-            int gastoPromedio = 1000  + random.nextInt(totalGastado);
-            LocalDate fecha   = LocalDate.of(2026, 1, 1)
-                                         .plusDays(random.nextInt(60));
+        for (int i = 0; i < 40; i++) {
+            String nombre = nombresComercios[random.nextInt(nombresComercios.length)];
+            String actividad = actividades[random.nextInt(actividades.length)];
+            String sector = sectores[random.nextInt(sectores.length)];
+            String ubicacion = ubicaciones[random.nextInt(ubicaciones.length)];
+            String nit = String.valueOf(900000000 + random.nextInt(99999999));
+            String contacto = "300" + (1000000 + random.nextInt(8999999));
+            int totalGastado = 10000 + random.nextInt(900000);
+            int gastoPromedio = totalGastado / (5 + random.nextInt(15));
+            LocalDate fechaGasto = LocalDate.now().minusDays(random.nextInt(365));
 
             Comercio c = new Comercio(
-                0,
-                nits[random.nextInt(nits.length)],
-                nombres[random.nextInt(nombres.length)],
-                actividades[random.nextInt(actividades.length)],
-                "contacto" + i + "@correo.com",
-                totalGastado,
-                ubicaciones[random.nextInt(ubicaciones.length)],
-                gastoPromedio,
-                sectores[random.nextInt(sectores.length)],
-                fecha
+                0, nit, nombre, actividad, contacto,
+                totalGastado, ubicacion, gastoPromedio, sector, fechaGasto
             );
-
             comercios.add(c);
         }
 

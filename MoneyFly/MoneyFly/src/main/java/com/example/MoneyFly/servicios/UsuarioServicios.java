@@ -16,7 +16,7 @@ public class UsuarioServicios {
 
     // Guardar usuario
     public Usuario guardar_usuario(Usuario datosUsuario){
-        
+
         if (datosUsuario.getNombres() == null || datosUsuario.getNombres().isBlank()) {
             throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST,
@@ -24,7 +24,14 @@ public class UsuarioServicios {
             );
         }
 
-        if (datosUsuario.getDocumento().length() < 6) {
+        if (datosUsuario.getContraseña() == null || datosUsuario.getContraseña().isBlank()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "La contraseña es obligatoria"
+            );
+        }
+
+        if (datosUsuario.getDocumento() == null || datosUsuario.getDocumento().length() < 6) {
             throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST,
                 "El documento debe tener al menos 6 caracteres"
@@ -48,7 +55,6 @@ public class UsuarioServicios {
                 "Usuario no encontrado"
             ));
 
-        // Actualizar campos que quieras permitir
         usuario_encontrado.setNombres(datosNuevos.getNombres());
         usuario_encontrado.setTipoDocumento(datosNuevos.getTipoDocumento());
         usuario_encontrado.setDocumento(datosNuevos.getDocumento());
@@ -56,12 +62,14 @@ public class UsuarioServicios {
         usuario_encontrado.setTelefono(datosNuevos.getTelefono());
         usuario_encontrado.setGenero(datosNuevos.getGenero());
         usuario_encontrado.setOcupacion(datosNuevos.getOcupacion());
-        
+        // ✅ CORRECCIÓN: edad faltaba en el modificar
+        usuario_encontrado.setEdad(datosNuevos.getEdad());
+
         return repositorio.save(usuario_encontrado);
     }
 
     // Eliminar usuario
-    public boolean eliminar_usuario (Integer id){
+    public boolean eliminar_usuario(Integer id){
 
         Usuario usuario = repositorio.findById(id)
             .orElseThrow(() -> new ResponseStatusException(
