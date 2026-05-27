@@ -1,5 +1,8 @@
 package com.example.MoneyFly.modelos;
+
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,67 +14,78 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Gastos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column (name = "descripcion_gasto", nullable = false, unique = false, length = 30)
+    @Column(name = "descripcion_gasto", nullable = false, length = 30)
     private String descripcion;
 
-    @Column (name = "fecha_gasto", nullable = false)
+    @Column(name = "fecha_gasto", nullable = false)
     private LocalDate fecha;
 
-    @Column (name = "valor", nullable = false, unique = false, length = 10)//al ser gasto hormiga tiene digitos menores
-    private int valor;
+    @Column(name = "valor", nullable = false)
+    private Integer valor;
 
-    @Column(name = "imagen", nullable = true)//campo opcional
+    @Column(name = "imagen")
     private String imagen;
-    
-    @Column(name = "Comercio", nullable = false, unique = false, length = 30)
-    private String Comercio;
 
-    @Column(name = "medio_de_pago", nullable = false, unique = false, length = 30)
+    @Column(name = "comercio", nullable = false, length = 30)
+    private String comercio;
+
+    @Column(name = "medio_de_pago", nullable = false, length = 30)
     private String medioPago;
 
-    @Column(name = "ubicacion", nullable = false, unique = false, length = 30)
+    @Column(name = "ubicacion", nullable = false, length = 30)
     private String ubicacion;
 
-    private int maximo;//pendiente
-    private String minimo;//pendiente
+    @Column(name = "maximo")
+    private Integer maximo;
 
+    @Column(name = "minimo")
+    private String minimo;
+
+   
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "fk_usuario", referencedColumnName ="id")
+    @JoinColumn(name = "fk_usuario")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_Comercio")
-    private Comercio comercio;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "fk_Categoria")
     private Categoria categoria;
 
-
-
-
     public Gastos() {
     }
 
-    public Gastos(String Comercio, String descripcion, LocalDate fecha, int id, String imagen, int maximo, String medioPago, String minimo, String ubicacion, int valor) {
-        this.Comercio = Comercio;
+   
+    public Gastos(
+            int id,
+            String descripcion,
+            LocalDate fecha,
+            Integer valor,
+            String imagen,
+            String comercio,
+            String medioPago,
+            String ubicacion,
+            Integer maximo,
+            String minimo) {
+
+        this.id = id;
         this.descripcion = descripcion;
         this.fecha = fecha;
-        this.id = id;
-        this.imagen = imagen;
-        this.maximo = maximo;
-        this.medioPago = medioPago;
-        this.minimo = minimo;
-        this.ubicacion = ubicacion;
         this.valor = valor;
+        this.imagen = imagen;
+        this.comercio = comercio;
+        this.medioPago = medioPago;
+        this.ubicacion = ubicacion;
+        this.maximo = maximo;
+        this.minimo = minimo;
     }
 
-    
-
+   
     public int getId() {
         return id;
     }
@@ -84,7 +98,7 @@ public class Gastos {
         return fecha;
     }
 
-    public int getValor() {
+    public Integer getValor() {
         return valor;
     }
 
@@ -93,7 +107,7 @@ public class Gastos {
     }
 
     public String getComercio() {
-        return Comercio;
+    return comercio;
     }
 
     public String getMedioPago() {
@@ -104,7 +118,7 @@ public class Gastos {
         return ubicacion;
     }
 
-    public int getMaximo() {
+    public Integer getMaximo() {
         return maximo;
     }
 
@@ -112,6 +126,15 @@ public class Gastos {
         return minimo;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+  
     public void setId(int id) {
         this.id = id;
     }
@@ -124,7 +147,7 @@ public class Gastos {
         this.fecha = fecha;
     }
 
-    public void setValor(int valor) {
+    public void setValor(Integer valor) {
         this.valor = valor;
     }
 
@@ -132,8 +155,8 @@ public class Gastos {
         this.imagen = imagen;
     }
 
-    public void setComercio(String Comercio) {
-        this.Comercio = Comercio;
+    public void setComercio(String comercio) {
+    this.comercio = comercio;
     }
 
     public void setMedioPago(String medioPago) {
@@ -144,7 +167,7 @@ public class Gastos {
         this.ubicacion = ubicacion;
     }
 
-    public void setMaximo(int maximo) {
+    public void setMaximo(Integer maximo) {
         this.maximo = maximo;
     }
 
@@ -152,6 +175,11 @@ public class Gastos {
         this.minimo = minimo;
     }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-    
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 }

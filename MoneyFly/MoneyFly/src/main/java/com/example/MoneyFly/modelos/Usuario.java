@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.MoneyFly.modelos.utils.Genero;
 import com.example.MoneyFly.modelos.utils.TipoDocumento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,18 +19,16 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 
-
 public class Usuario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "nombres_completos", nullable = false, unique = false, length = 50)
-    //@JsonProperty("nombres")
-    private String nombres; 
+    private String nombres;
 
-    @Column(name = "tipo_documento", nullable = false, unique = false, length = 20) // hay que hacerle un enum
+    @Column(name = "tipo_documento", nullable = false, unique = false, length = 20)
     @Enumerated(EnumType.STRING)
     private TipoDocumento tipoDocumento;
 
@@ -46,29 +45,28 @@ public class Usuario {
     private String telefono;
 
     @Column(name = "Contraseña", nullable = false, unique = false, length = 50)
-    //@JsonProperty("password")
     private String contraseña;
 
-    @Column(name = "Genero", nullable = false, unique = false, length = 20) // hay que hacerle un enum
+    @Column(name = "Genero", nullable = false, unique = false, length = 20)
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
     @Column(name = "Ocupacion", nullable = false, length = 50)
     private String ocupacion;
 
-    @OneToMany (mappedBy = "usuario")
-    private List <MedioPago> medioPago;
+    // @JsonIgnore evita el bucle infinito al serializar a JSON
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario")
+    private List<MedioPago> medioPago;
 
-    @OneToMany (mappedBy = "usuario")
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario")
     private List<Gastos> Gastos;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Categoria> categorias;
 
-
-
-
-    
     public Usuario() {
     }
 
@@ -125,6 +123,18 @@ public class Usuario {
         return ocupacion;
     }
 
+    public List<MedioPago> getMedioPago() {
+        return medioPago;
+    }
+
+    public List<Gastos> getGastos() {
+        return Gastos;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -165,7 +175,16 @@ public class Usuario {
         this.ocupacion = ocupacion;
     }
 
-    
-    
+    public void setMedioPago(List<MedioPago> medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    public void setGastos(List<Gastos> gastos) {
+        Gastos = gastos;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 
 }

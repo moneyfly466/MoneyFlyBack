@@ -3,6 +3,7 @@ package com.example.MoneyFly.controlador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,39 +18,56 @@ import com.example.MoneyFly.servicios.UsuarioServicios;
 
 @RestController
 @RequestMapping("/apimoneyfly/v1/usuarios")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ControladorUsuario {
 
     @Autowired
     UsuarioServicios servicio;
 
-    //funcion controladora para el servicio de guardar usuario 
+    // Guardar usuario
     @PostMapping
-    public ResponseEntity <?> controladorGuardar(@RequestBody Usuario datos){
-        return ResponseEntity.status(HttpStatus.OK).body(servicio.guardar_usuario(datos));
+    public ResponseEntity<?> controladorGuardar(@RequestBody Usuario datos) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(servicio.guardar_usuario(datos));
     }
 
-    //funcion controladora para el servicio de listar todos los usuarios
-
+    // Listar usuarios
     @GetMapping
-    public ResponseEntity <?> controladorlistar(){
-        return ResponseEntity.status(HttpStatus.OK).body(servicio.listar_Usuarios());
+    public ResponseEntity<?> controladorlistar() {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(servicio.listar_Usuarios());
     }
 
-    //controlador para modificar
+    // Modificar usuario
     @PutMapping("/{id}")
-    public ResponseEntity<?> controladorModificar(@PathVariable Integer id, @RequestBody Usuario datos){
-        return ResponseEntity.ok(servicio.modificar_Usuario(id, datos));
+    public ResponseEntity<?> controladorModificar(
+            @PathVariable Integer id,
+            @RequestBody Usuario datos
+    ) {
+
+        return ResponseEntity
+                .ok(servicio.modificar_Usuario(id, datos));
     }
 
-    //controlador para eliminar
+    // Eliminar usuario
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> controaldorEliminar(@PathVariable Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_usuario(id));
+    public ResponseEntity<?> controaldorEliminar(@PathVariable Integer id) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(servicio.eliminar_usuario(id));
     }
 
-    //control para buscar por id 
+    // Buscar usuario por id
     @GetMapping("/{id}")
-    public ResponseEntity<?> controaldorBuscarPorId(@PathVariable Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_usuario_por_id(id));
+    public ResponseEntity<?> controaldorBuscarPorId(@PathVariable Integer id) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(servicio.buscar_usuario_por_id(id));
     }
 }
